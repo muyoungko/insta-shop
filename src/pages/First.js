@@ -1,13 +1,14 @@
 import React from 'react';
 
-const OrderList = ({match}) => {
+const First = ({match}) => {
     return (
         <div>
             <h2>
-                OrderList - {match.params.seller}
+                처음봄
             </h2>
+            처음봄
         </div>
     );
 };
 
-export default OrderList;
+export default First;

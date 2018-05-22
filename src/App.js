@@ -1,14 +1,31 @@
 import React, { Component } from 'react';
 import './App.css';
-import * as firebase from 'firebase'
+import firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/database'
+import 'firebase/firestore'
+import 'firebase/storage'
+import 'firebase/messaging'
+
+import ReactGA from 'react-ga';
+
 // import { Router, Route, Switch } from 'react-router'
 import Instagram from 'node-instagram';
-import ProductSelect from './pages/ProductSelect.js';
-import OrderList from './pages/OrderList.js';
-import Shop from './pages/Shop.js';
+
 import Main from './pages/Main.js';
 
+
+import Shop from './pages/Shop.js';
+import Product from './pages/Product.js';
+import Order from './pages/Order.js';
+import Login from './pages/Login.js';
+import First from './pages/First.js';
+import Callback from './pages/Callback.js';
+
+
 import { Route, BrowserRouter } from 'react-router-dom';
+
+import $ from 'jquery';
 
 let config = {
     apiKey: "AIzaSyBRkuDWWYp1ZZybWOmanPgh0J47j746Rc8",
@@ -31,10 +48,21 @@ class App extends Component {
     super();
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
+      ReactGA.initialize('UA-100015589-2');
     }
     this.state = {
       speed : 101
     };
+
+    instagram.get('users/self', (err, data) => {
+      if (err) {
+        // an error occured
+        console.log(err);
+      } else {
+        console.log(data);
+      }
+    });
+
 
     const db = firebase.database();
     const dbRef = db.ref().child('seller').child('muyoungko217').child('userName');
@@ -57,9 +85,15 @@ class App extends Component {
         <div className="App">
           <h1>Talk In Shop</h1>
           <Route exact path="/" component={Main}/>
+          <Route exact path="/login" component={Login}/>
+          <Route exact path="/talkin" component={Callback}/>
+
           <Route exact path="/:seller" component={Shop}/>
-          <Route path="/seller/list/:seller" component={ProductSelect}/>
-          <Route path="/seller/order/:seller" component={OrderList}/>
+          <Route path="/product/:product" component={Product}/>
+          <Route path="/first" component={First}/>
+          <Route path="/order/:order" component={Order}/>
+
+
         </div>
       </BrowserRouter>
     );
