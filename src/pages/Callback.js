@@ -1,13 +1,26 @@
 import React from 'react';
+import queryString from 'query-string';
 
-const Callback = ({match}) => {
+class Callback extends React.Component  {
+  constructor()
+  {
+    super();
+
+  }
+  componentDidMount () {
+    var params = queryString.parse(this.props.location.search);
+    var code = params.code;
+
+
+  }
+
+  render(){
     return (
-        <div>
-            <h2>
-                Callback
-            </h2>
-        </div>
+      <div>
+          인증 완료되었습니다
+      </div>
     );
-};
+  }
+}
 
 export default Callback;

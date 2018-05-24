@@ -23,7 +23,7 @@ import First from './pages/First.js';
 import Callback from './pages/Callback.js';
 
 
-import { Route, BrowserRouter } from 'react-router-dom';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import $ from 'jquery';
 
@@ -42,7 +42,7 @@ const instagram = new Instagram({
   accessToken: 'user-access-token',
 });
 
-class App extends Component {
+class App extends React.Component {
 
   constructor(){
     super();
@@ -77,6 +77,8 @@ class App extends Component {
     this.state = {
       speed : 25
     };
+
+    console.log("componentDidMount");
   }
 
   render() {
@@ -84,15 +86,16 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <h1>Talk In Shop</h1>
-          <Route exact path="/" component={Main}/>
-          <Route exact path="/login" component={Login}/>
-          <Route exact path="/talkin" component={Callback}/>
+          <Switch>
+            <Route exact path="/" component={Main}/>
+            <Route exact path="/login" component={Login}/>
+            <Route path="/talkin" component={Callback}/>
 
-          <Route exact path="/:seller" component={Shop}/>
-          <Route path="/product/:product" component={Product}/>
-          <Route path="/first" component={First}/>
-          <Route path="/order/:order" component={Order}/>
-
+            <Route path="/product/:product" component={Product}/>
+            <Route path="/first" component={First}/>
+            <Route path="/order/:order" component={Order}/>
+            <Route exact path="/:seller" component={Shop}/>
+          </Switch>
 
         </div>
       </BrowserRouter>

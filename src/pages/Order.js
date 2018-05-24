@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Order = ({order}) => {
+const Order = ({match}) => {
     return (
         <div>
             <h2>
