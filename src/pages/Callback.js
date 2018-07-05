@@ -1,5 +1,4 @@
 import React from 'react';
-import queryString from 'querystring';
 
 class Callback extends React.Component  {
   constructor()
@@ -8,16 +7,24 @@ class Callback extends React.Component  {
 
   }
   componentDidMount () {
-    var params = queryString.parse(this.props.location.search);
-    var code = params.code;
-
-
   }
 
   render(){
     return (
       <div>
-          인증 완료되었습니다
+        <h2>
+            Talk In Shop
+        </h2>
+        <div style={{height: '80vh'}}>
+          <div style={{position: 'relative', top: '40%',  display: 'block'}}>
+            <div>
+              인증 완료되었습니다
+            </div>
+            <div>
+              잠시만 기다려주세요
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
