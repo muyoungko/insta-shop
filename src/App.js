@@ -54,23 +54,23 @@ class App extends React.Component {
       speed : 101
     };
 
-    instagram.get('users/self', (err, data) => {
-      if (err) {
-        // an error occured
-        console.log(err);
-      } else {
-        console.log(data);
-      }
-    });
+    // instagram.get('users/self', (err, data) => {
+    //   if (err) {
+    //     // an error occured
+    //     console.log(err);
+    //   } else {
+    //     console.log(data);
+    //   }
+    // });
 
 
-    const db = firebase.database();
-    const dbRef = db.ref().child('seller').child('muyoungko217').child('userName');
-
-    db.ref('/seller/muyoungko217/userName').once('value').then(function(snapshot) {
-      //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-      //alert(snapshot.val());
-    });
+    // const db = firebase.database();
+    // const dbRef = db.ref().child('seller').child('muyoungko217').child('userName');
+    //
+    // db.ref('/seller/muyoungko217/userName').once('value').then(function(snapshot) {
+    //   //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
+    //   //alert(snapshot.val());
+    // });
   }
 
   componentDidMount () {
@@ -85,7 +85,6 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <h1>Talk In Shop</h1>
           <Switch>
             <Route exact path="/" component={Main}/>
             <Route exact path="/login" component={Login}/>

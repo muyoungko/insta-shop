@@ -1,5 +1,5 @@
 import React from 'react';
-import queryString from 'query-string';
+import queryString from 'querystring';
 
 class Callback extends React.Component  {
   constructor()
