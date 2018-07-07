@@ -7,6 +7,8 @@ import 'firebase/firestore'
 import 'firebase/storage'
 import 'firebase/messaging'
 
+import NavBar from './component/NavBar'
+
 import ReactGA from 'react-ga';
 
 // import { Router, Route, Switch } from 'react-router'
@@ -83,21 +85,23 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <Switch>
-            <Route exact path="/" component={Main}/>
-            <Route exact path="/login" component={Login}/>
-            <Route path="/talkin" component={Callback}/>
+      <div>
+        <BrowserRouter>
+          <div className="App">
+            <Switch>
+              <Route exact path="/" component={Main}/>
+              <Route exact path="/login" component={Login}/>
+              <Route path="/talkin" component={Callback}/>
 
-            <Route path="/product/:product" component={Product}/>
-            <Route path="/first" component={First}/>
-            <Route path="/order/:order" component={Order}/>
-            <Route exact path="/:seller" component={Shop}/>
-          </Switch>
+              <Route path="/product/:product" component={Product}/>
+              <Route path="/first" component={First}/>
+              <Route path="/order/:order" component={Order}/>
+              <Route exact path="/:seller" component={Shop}/>
+            </Switch>
 
-        </div>
-      </BrowserRouter>
+          </div>
+        </BrowserRouter>
+      </div>
     );
   }
 }

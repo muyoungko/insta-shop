@@ -62,6 +62,7 @@ export default class Logic{
   //static selectProductFromShop(){}
   //static selectProduct(){}
   //static updateProduct(){}
+  //static selectSellerInfo(){}
   //static selectProductCandidateFromShop(){}
   static selectOrderListFromShop(seller){}
   static selectOrderDetail(orderid){}
@@ -174,6 +175,15 @@ export default class Logic{
     });
   }
 
+  static selectSellerInfo(shop, func)
+  {
+      const db = firebase.database();
+      db.ref('shops/'+shop).once('value').then(function(shopSnapshot){
+        var shop = shopSnapshot.val();
+        func(shop);
+      });
+  }
+
   static selectProductFromShop(shopId, func){
     const db = firebase.database();
     db.ref('shops/'+shopId +'/products').once('value').then(function(productIdArraySnapshot){
@@ -189,6 +199,7 @@ export default class Logic{
       }
     });
   }
+
 
   static selectProductCandidateFromShop(shop, funca){
     const db = firebase.database();
