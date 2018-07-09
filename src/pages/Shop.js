@@ -38,7 +38,7 @@ class Shop extends React.Component  {
         <div>
 
 
-                <div style={{padding:8, width:'100%',height:60,
+                <div style={{padding:0, width:'100%',height:60,
                   //backgroundColor:'#00ff00'
                 }}>
 
@@ -51,12 +51,13 @@ class Shop extends React.Component  {
                     left:0,
                     width:60,
                     height:60,
+                    padding:3,
                     float: 'left'
                   }}>
                       <img
                       style={{
-                        width:60,
-                        height:60,
+                        width:57,
+                        height:57,
                         borderRadius:'50%'
                       }}
                       src={this.state.shop.profile_picture}/>
@@ -68,15 +69,16 @@ class Shop extends React.Component  {
                     position:'abolute',
                     backgroundColor:'#dddddd',
                     left:0,
-                    width:'60px',
-                    height:'60px',
+                    width:'57px',
+                    height:'57px',
+                    margin:3,
                     borderRadius:'50%',
                     float: 'left'
                   }}/>
                 )}
                   <div style={{float: 'left',
                         marginLeft:10,
-                        marginTop:10,
+                        marginTop:13,
                         //backgroundColor:'#ffff00',
                         // lineHeight: '60px',
                         fontSize:15,
@@ -89,10 +91,10 @@ class Shop extends React.Component  {
                   <div style={{float: 'left',
                         position:'absolute',
                         right:0,
-                        marginTop:8,
+                        marginTop:12,
                         marginRight:10,
                         }}>
-                        <TopIcons/>
+                        <TopIcons />
                   </div>
 
 

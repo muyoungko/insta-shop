@@ -1,5 +1,5 @@
 import React from 'react';
-
+import querystring from 'querystring'
 class Callback extends React.Component  {
   constructor()
   {
@@ -7,6 +7,9 @@ class Callback extends React.Component  {
 
   }
   componentDidMount () {
+    //var param = querystring.parse(this.props.location.query);
+    alert(this.props.location.query);
+
   }
 
   render(){

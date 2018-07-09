@@ -61,6 +61,8 @@ export default class Logic{
   static removeProductFromShop(){}
   //static selectProductFromShop(){}
   //static selectProduct(){}
+  //static selectMyCart(){}
+  //static selectMyOrder(){}
   //static updateProduct(){}
   //static selectSellerInfo(){}
   //static selectProductCandidateFromShop(){}
@@ -80,6 +82,21 @@ export default class Logic{
   static upsertOrderFromShop(){}
   static selectOrderListFromUser(seller){}
 
+
+  static selectMyCart(token, func)
+  {
+    const db = firebase.database();
+    db.ref('cart/'+token).once('value').then(function(snapshot){
+      func(snapshot.val());
+    });
+  }
+  static selectMyOrder(token, func)
+  {
+    const db = firebase.database();
+    db.ref('orders/byusers/'+token).once('value').then(function(snapshot){
+      func(snapshot.val());
+    });
+  }
   static transferMediaToProductInShop(shopid, media, func){
     const db = firebase.database();
     var self = this;
