@@ -1,15 +1,52 @@
 import React from 'react';
-import querystring from 'querystring'
+import Logic from '../logic/Logic.js';
+import querystring from 'query-string';
+import cookie from 'react-cookie';
+import InstaApi from '../instaapi/InstaApi.js';
+
 class Callback extends React.Component  {
   constructor()
   {
     super();
 
   }
-  componentDidMount () {
-    //var param = querystring.parse(this.props.location.query);
-    alert(this.props.location.query);
 
+  //http://127.0.0.1:3000/talkin?from=order#access_token=4787392170.c99f61f.c60e924b999542fdbfd25e899204c44c
+  componentDidMount () {
+    var param = querystring.parse(this.props.location.search);
+    var from =param.from;
+
+    var currentUrl = window.location.href;
+    var index = currentUrl.indexOf('#');
+    var token = currentUrl.substring(index+'#access_token='.length,currentUrl.length);
+
+    cookie.save('insta_token', param.access_token);
+    InstaApi.init('c99f61f0de284159a05576d4b34005bc', 'a50de48865f8436ba1298d420a1f7213', token);
+    if(from == 'order')
+    {
+      /**
+        full_name: "고무영", id: "4787392170",
+        profile_picture: "https://scontent.cdninstagram.com/vp/dbe35d81549e6…8646542_226387131186395_2345035874279882752_a.jpg",
+        username: "muyoungko217"}
+      */
+      Logic.upsertAndGetUser(function(user,err){
+          cookie.save('token', user.id);
+          window.location.href = '/myorder';
+      });
+    }else if(from == 'cart')
+    {
+      Logic.upsertAndGetUser(function(user,err){
+          cookie.save('token', user.id);
+          window.location.href = '/mycart';
+      });
+    }else if(from == 'first')
+    {
+      Logic.upsertAndGetUser(function(user,err){
+          cookie.save('token', user.id);
+          var productId =param.productId;
+          window.location.href = '/first?productId='+productId;
+      });
+    }
   }
 
   render(){

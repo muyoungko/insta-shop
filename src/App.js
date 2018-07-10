@@ -20,6 +20,8 @@ import Main from './pages/Main.js';
 import Shop from './pages/Shop.js';
 import Product from './pages/Product.js';
 import Order from './pages/Order.js';
+import MyOrder from './pages/MyOrder.js';
+import MyCart from './pages/MyCart.js';
 import Login from './pages/Login.js';
 import First from './pages/First.js';
 import Callback from './pages/Callback.js';
@@ -93,10 +95,14 @@ class App extends React.Component {
               <Route exact path="/login" component={Login}/>
               <Route path="/talkin" component={Callback}/>
 
+              <Route path="/myorder" component={MyOrder}/>
+              <Route path="/mycart" component={MyCart}/>
               <Route path="/product/:product" component={Product}/>
               <Route path="/first" component={First}/>
               <Route path="/order/:order" component={Order}/>
               <Route exact path="/:seller" component={Shop}/>
+
+
             </Switch>
 
           </div>
