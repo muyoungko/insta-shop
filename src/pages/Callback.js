@@ -18,7 +18,7 @@ class Callback extends React.Component  {
     var from = url.searchParams.get('from');
     var index = currentUrl.indexOf('#');
     var token = currentUrl.substring(index+'#access_token='.length,currentUrl.length);
-
+    alert(token);
     cookie.save('insta_token', token);
     InstaApi.init('c99f61f0de284159a05576d4b34005bc', 'a50de48865f8436ba1298d420a1f7213', token);
     if(from == 'order')
@@ -51,11 +51,11 @@ class Callback extends React.Component  {
   render(){
     return (
       <div>
-        <h2>
-            Talk In Shop
-        </h2>
         <div style={{height: '80vh'}}>
           <div style={{position: 'relative', top: '40%',  display: 'block'}}>
+            <h2>
+                Talk In Shop
+            </h2>
             <div>
               인증 완료되었습니다
             </div>

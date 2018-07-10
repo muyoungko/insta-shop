@@ -1,0 +1,49 @@
+
+
+.chatframe {
+  height: auto;
+  min-height: 100%;
+  max-height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+.chatli{
+  display: inline-block;
+  clear: both;
+  width: 90%;
+  font-size: 0.9em;
+  margin : 0px 0px 0 0;
+}
+.chatfaceleft {
+  margin: 16px 8px 0 0;
+  width: 36px;
+  border-radius: 50%;
+  float: left;
+}
+.chatfaceright {
+  float: right;
+  margin: 16px 0 0 8px;
+  width: 36px;
+  border-radius: 50%;
+}
+
+.chatmessage{
+  display: inline-block;
+  padding: 10px 15px;
+  border-radius: 20px;
+  max-width: 205px;
+  line-height: 130%;
+
+}
+
+.chatmessageleft{
+  background: #435f7a;
+  color: #f5f5f5;
+  float: left;
+}
+.chatmessageright{
+  background: #f5f5f5;
+  float: right;
+}

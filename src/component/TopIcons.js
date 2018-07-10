@@ -49,8 +49,15 @@ class TopIcons extends React.Component  {
   }
   _handleClickCart()
   {
-    const url = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3Dcart&response_type=token';
+    var token = cookie.load('token');
+    if(token != null)
+    {
 
+        window.location.href = '/mycart';
+    }
+    else {
+        window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3Dcart&response_type=token'
+    }
   }
 
   render(){
