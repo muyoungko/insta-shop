@@ -1,7 +1,6 @@
 
 import React from 'react';
 import Logic from '../logic/Logic.js';
-import queryString from 'querystring';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TopIcons from '../component/TopIcons.js';
@@ -97,7 +96,6 @@ class Shop extends React.Component  {
                         }}>
                         <TopIcons />
                   </div>
-
 
                 </div>
 

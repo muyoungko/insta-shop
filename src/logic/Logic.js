@@ -58,12 +58,11 @@ export default class Logic{
 
   //static transferMediaToProductInShop(){}
   //static updateProduct(){}
-  static removeProductFromShop(){}
+  //static removeProductFromShop(){}
   //static selectProductFromShop(){}
   //static selectProduct(){}
   //static selectMyCart(){}
   //static selectMyOrder(){}
-  //static updateProduct(){}
   //static selectSellerInfo(){}
   //static selectProductCandidateFromShop(){}
   static selectOrderListFromShop(seller){}
@@ -182,6 +181,35 @@ export default class Logic{
       func(error);
     });
 
+  }
+  static removeProductFromShop(shop, productId, func){
+    const db = firebase.database();
+    var pproduct = {
+      id:productId,
+      removed: true
+    };
+    db.ref('products/'+productId).update(pproduct, function(error){
+
+      db.ref('shops/'+shop+'/products').once('value').then(function(productIdArraySnapshot){
+        var productIdArray = productIdArraySnapshot.val();
+        var products = [];
+        for(var i=0;i<productIdArray.length;i++)
+        {
+          if(productIdArray[i] == productId)
+            continue;
+          products.push(productIdArray[i]);
+        }
+
+        var newshop = {};
+        newshop['products'] = products;
+        db.ref('shops/'+shop).update(newshop, function(error){
+          func(error);
+        });
+      });
+
+
+
+    });
   }
 
   static selectProduct(productId ,func){
