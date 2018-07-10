@@ -1,6 +1,5 @@
 import React from 'react';
 import Logic from '../logic/Logic.js';
-import querystring from 'query-string';
 import cookie from 'react-cookie';
 import InstaApi from '../instaapi/InstaApi.js';
 
@@ -8,19 +7,19 @@ class Callback extends React.Component  {
   constructor()
   {
     super();
-
   }
 
   //http://127.0.0.1:3000/talkin?from=order#access_token=4787392170.c99f61f.c60e924b999542fdbfd25e899204c44c
   componentDidMount () {
-    var param = querystring.parse(this.props.location.search);
-    var from =param.from;
-
     var currentUrl = window.location.href;
+    var url = new URL(currentUrl);
+
+    //var param = querystring.parse(this.props.location.search);
+    var from = url.searchParams.get('from');
     var index = currentUrl.indexOf('#');
     var token = currentUrl.substring(index+'#access_token='.length,currentUrl.length);
 
-    cookie.save('insta_token', param.access_token);
+    cookie.save('insta_token', token);
     InstaApi.init('c99f61f0de284159a05576d4b34005bc', 'a50de48865f8436ba1298d420a1f7213', token);
     if(from == 'order')
     {
@@ -43,7 +42,7 @@ class Callback extends React.Component  {
     {
       Logic.upsertAndGetUser(function(user,err){
           cookie.save('token', user.id);
-          var productId =param.productId;
+          var productId = url.searchParams.get('productId');
           window.location.href = '/first?productId='+productId;
       });
     }

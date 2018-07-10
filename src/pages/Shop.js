@@ -5,6 +5,7 @@ import queryString from 'querystring';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TopIcons from '../component/TopIcons.js';
+import ProductItem from '../component/ProductItem.js'
 
 const JSON = require('JSON');
 
@@ -104,12 +105,9 @@ class Shop extends React.Component  {
                   <div>
                       <Grid container spacing={0} style={{padding: 3}}>
                           { this.state.data.map(currentProduct => (
-                              <Grid style={{backgroundColor:'#ffffff'}} key={currentProduct.id} item
+                              <Grid stle={{backgroundColor:'#ffffff'}} key={currentProduct.id} item
                               xs={4} sm={2} lg={4} xl={3}>
-
-                                  <div style={{verticalAlign: 'middle', width:'98%', height:'98%', backgroundColor:'#eeeeee'}} >
-                                    <img style={{verticalAlign: 'middle', maxWidth:'100%', maxHeight:'100%'}} src={currentProduct.image}/>
-                                  </div>
+                                  <ProductItem product={currentProduct}/>
                               </Grid>
                           ))}
                       </Grid>
