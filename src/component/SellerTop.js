@@ -1,35 +1,33 @@
 import React from 'react';
 import Logic from '../logic/Logic.js';
-import queryString from 'querystring';
-import TopIcons from '../component/TopIcons.js'
+import Grid from '@material-ui/core/Grid';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import TopIcons from '../component/TopIcons.js';
+import ProductItem from '../component/ProductItem.js'
 
-class Order extends React.Component  {
-  constructor(props)
+class SellerTop extends React.Component  {
+
+
+  constructor()
   {
-    super(props);
-
+    super();
     this.state = {
-
     };
   }
   componentDidMount () {
-    var currentUrl = window.location.href;
-    var url = new URL(currentUrl);
-    var productId = url.pathname.replace("/product/",""); ;
+    var shop = this.props.shop;
     var self = this;
-    Logic.selectOrderDetail(productId, function(json){
+    Logic.selectSellerInfo(shop, function(json){
       self.setState({
-        order : json
+        shop : json
       });
     });
-
-    
   }
 
+
   render(){
-    return (
-      <div>
-      <div style={{padding:0, width:'100%',height:60,
+    return(
+      <div style={{paddingLeft:3, paddingTop:5,  width:'100%',height:60,
         //backgroundColor:'#00ff00'
       }}>
 
@@ -76,6 +74,13 @@ class Order extends React.Component  {
               color:'#333',
               textAlign:'left'}}>
                 {this.state.shop? this.state.shop.username : ""}
+
+                {this.state.shop? (
+                  <span style={{fontSize:15,color:'#555'}}>
+                    <br/>
+                    {this.state.shop.description}
+                  </span>
+                ) : ""}
         </div>
 
         <div style={{float: 'left',
@@ -88,12 +93,7 @@ class Order extends React.Component  {
         </div>
 
       </div>
-          <h2>
-              주문이 완료되었습니다.
-          </h2>
-      </div>
-    );
+    )
   }
 }
-
-export default Order;
+export default SellerTop;

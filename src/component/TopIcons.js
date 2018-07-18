@@ -40,7 +40,6 @@ class TopIcons extends React.Component  {
     var token = cookie.load('token');
     if(token != null)
     {
-
         window.location.href = '/myorder';
     }
     else {
@@ -52,7 +51,6 @@ class TopIcons extends React.Component  {
     var token = cookie.load('token');
     if(token != null)
     {
-
         window.location.href = '/mycart';
     }
     else {

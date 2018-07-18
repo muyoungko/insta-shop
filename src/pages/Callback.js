@@ -18,7 +18,7 @@ class Callback extends React.Component  {
     var from = url.searchParams.get('from');
     var index = currentUrl.indexOf('#');
     var token = currentUrl.substring(index+'#access_token='.length,currentUrl.length);
-    alert(token);
+
     cookie.save('insta_token', token);
     InstaApi.init('c99f61f0de284159a05576d4b34005bc', 'a50de48865f8436ba1298d420a1f7213', token);
     if(from == 'order')
@@ -38,12 +38,32 @@ class Callback extends React.Component  {
           cookie.save('token', user.id);
           window.location.href = '/mycart';
       });
-    }else if(from == 'first')
+    }
+    //주소 입력 후 주문
+    else if(from == 'first')
     {
       Logic.upsertAndGetUser(function(user,err){
           cookie.save('token', user.id);
           var productId = url.searchParams.get('productId');
           window.location.href = '/first?productId='+productId;
+      });
+    }
+    //다시 상품상세
+    else if(from == 'product')
+    {
+      Logic.upsertAndGetUser(function(user,err){
+          cookie.save('token', user.id);
+          var productId = url.searchParams.get('productId');
+          window.location.href = '/product/'+productId;
+      });
+    }
+    //상품 주문
+    else if(from == 'orderProduct')
+    {
+      Logic.upsertAndGetUser(function(user,err){
+          cookie.save('token', user.id);
+          var productId = url.searchParams.get('productId');
+          window.location.href = '/order/'+productId;
       });
     }
   }

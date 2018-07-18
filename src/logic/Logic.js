@@ -62,13 +62,16 @@ export default class Logic{
   //static selectProductFromShop(){}
   //static selectProduct(){}
   //static selectMyCart(){}
+  //static addCart(){}
+  //static order(){}
   //static selectMyOrder(){}
   //static selectSellerInfo(){}
+  //static selectSellerInfoByProduct(){}
   //static selectProductCandidateFromShop(){}
   static selectOrderListFromShop(seller){}
   static selectOrderDetail(orderid){}
   static changeOrderStateFromShop(){}
-  static selectProfitFromShop(seller){}
+  static selectProfitFromShop(seller){}d
 
   static upsertChat(){}
   static selectChatList(){}
@@ -81,7 +84,53 @@ export default class Logic{
   static upsertOrderFromShop(){}
   static selectOrderListFromUser(seller){}
 
+  static order(token, shop, productId, func){
+    const db = firebase.database();
+    var orderId = String(db.ref('orders/all'+).push());
+    orderId = orderId.substring(orderId.lastIndexOf("/")+1, orderId.length);
 
+    db.ref('products/'+productId).once('value').then(function(productSnapshot){
+      var product = productSnapshot.val();
+      var order = {};
+      order['id'] = orderId;
+      order['price'] = product.price;
+      order['state'] = 'order';
+      order['address'] = '주소';
+      order['count'] = 1;
+      order['shop'] = shop;
+      order['user'] = token;
+
+      db.ref('orders/all/'+orderId).update(order);
+      db.ref('orders/byuser/'+token+"/"+orderId).update(order);
+      db.ref('orders/byshop/'+shop+"/"+orderId).update(order);
+      func(orderId);
+    });
+  }
+  static addCart(token, productId, func){
+    const db = firebase.database();
+    db.ref('cart/'+token).once('value').then(function(snapshot){
+      var arr = snapshot.val();
+      var has = false;
+      for(var i=0;i<arr.length;i++)
+      {
+        if(arr[i] == productId)
+        {
+          has = true;
+          break;
+        }
+      }
+      if(has)
+      {
+        func(false);
+      }
+      else {
+        arr.push(productId);
+        db.ref('cart/'+token).update(arr, function(error){
+          func(true);
+        });
+      }
+    });
+  }
   static selectMyCart(token, func)
   {
     const db = firebase.database();
@@ -92,7 +141,7 @@ export default class Logic{
   static selectMyOrder(token, func)
   {
     const db = firebase.database();
-    db.ref('orders/byusers/'+token).once('value').then(function(snapshot){
+    db.ref('orders/byuser/'+token).once('value').then(function(snapshot){
       func(snapshot.val());
     });
   }
@@ -220,6 +269,15 @@ export default class Logic{
     });
   }
 
+
+  static selectSellerInfoByProduct(productId, func)
+  {
+    const db = firebase.database();
+    db.ref('products/'+productId+"/shop").once('value').then(function(shopSnapshot){
+      var shop = shopSnapshot.val();
+      Logic.selectSellerInfo(shop, func);
+    });
+  }
   static selectSellerInfo(shop, func)
   {
       const db = firebase.database();

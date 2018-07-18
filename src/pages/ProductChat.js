@@ -9,7 +9,7 @@ import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Chat from '../component/Chat.js';
 import cookie from 'react-cookie';
 
-class Product extends React.Component  {
+class ProductChat extends React.Component  {
   constructor()
   {
     super();
@@ -28,56 +28,23 @@ class Product extends React.Component  {
         product : json
       });
     });
-
-    Logic.selectSellerInfoByProduct(productId, function(json){
-      self.setState({
-        shop : json
-      });
-    });
   }
   _addCart(){
     var token = cookie.load('token');
-    token = '4787392170';
-    if(token == null)
-    {
-      window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3Dproduct%3FproductId%3D'+this.state.product.id+'&response_type=token'
-    }
-    else
-    {
-      var self = this;
-      Logic.addCart(token ,this.state.product.id, function(success){
-        if(success)
-        {
-          alert('장바구니에 추가되었습니다.');
-        }
-        else {
-          alert('이미 장바구니에 있는 상품입니다.');
-        }
-      });
-    }
+    var self = this;
+    Logic.addCart(this.state.product.id, function(success){
+      if(success)
+      {
+        alert('장바구니에 추가되었습니다.');
+      }
+      else {
+        alert('이미 장바구니에 있는 상품입니다.');
+      }
+    });
   }
   _order()
   {
-    var token = cookie.load('token');
-    token = '4787392170';
-    if(token == null)
-    {
-      window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3DorderProduct%3FproductId%3D'+this.state.product.id+'&response_type=token'
-    }
-    else
-    {
-      var self = this;
-      Logic.order(token ,this.state.shop.id, this.state.product.id, function(orderId){
-        if(orderId != null)
-        {
-          window.location.href = '/order/'+orderId;
-        }
-        else
-        {
-          alert('주문에 실패했어요.');
-        }
-      });
-    }
+    alert('order');
   }
 
   render(){
@@ -89,10 +56,10 @@ class Product extends React.Component  {
               <img width='100%' src={this.state.product.image_high}/>
             </div>
 
-            <div style={{padding:0, backgroundColor:'#ffffff',
+            <div style={{padding:5, backgroundColor:'#ffffff',
               position:'fixed', left:0, right:0, bottom:0}}>
 
-              <div style={{padding:5, backgroundColor:'#eeeeee'}}>
+              <div>
                 <div style={{display:'inline'}}>
                   Price :
                 </div>
@@ -111,13 +78,13 @@ class Product extends React.Component  {
                 display:'flex', flexDirection:'row', width:'100%'}}>
                 <IconButton
                   style={{ marginLeft:5}}
-                  onClick={this._addCart.bind(this)}
+                  onClick={this._addCart}
                   >
                   <ShoppingCart/>
                 </IconButton>
 
                 <div style={{ marginLeft:5, marginTop:6,width:'85%'}} >
-                  <Button onClick={this._order.bind(this)} fullWidth='true' variant='outlined' >
+                  <Button onClick={this._order} fullWidth='true' variant='outlined' >
                     주문하기
                   </Button>
                 </div>
@@ -146,4 +113,4 @@ class Product extends React.Component  {
 
 
 
-export default Product;
+export default ProductChat;
