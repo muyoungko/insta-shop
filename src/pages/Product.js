@@ -59,10 +59,15 @@ class Product extends React.Component  {
   _order()
   {
     var token = cookie.load('token');
+    var address = cookie.load('address');
     token = '4787392170';
     if(token == null)
     {
       window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3DorderProduct%3FproductId%3D'+this.state.product.id+'&response_type=token'
+    }
+    else if(address == null)
+    {
+      window.location.href = '/First?productId='+this.state.product.id;
     }
     else
     {

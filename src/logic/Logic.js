@@ -86,7 +86,7 @@ export default class Logic{
 
   static order(token, shop, productId, func){
     const db = firebase.database();
-    var orderId = String(db.ref('orders/all'+).push());
+    var orderId = String(db.ref('orders/all').push());
     orderId = orderId.substring(orderId.lastIndexOf("/")+1, orderId.length);
 
     db.ref('products/'+productId).once('value').then(function(productSnapshot){

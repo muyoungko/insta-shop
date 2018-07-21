@@ -86,7 +86,7 @@ class SellerTop extends React.Component  {
         <div style={{float: 'left',
               position:'absolute',
               right:0,
-              marginTop:12,
+              marginTop:8,
               marginRight:10,
               }}>
               <TopIcons />

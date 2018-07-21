@@ -57,7 +57,7 @@ class Shop extends React.Component  {
                     ref={(ref)=>{this.progress = ref;}}
                     style={{
                       position:'absolute',
-                      top:'45%',
+                      top:'35%',
                       left:'45%',
                       }}
                   />

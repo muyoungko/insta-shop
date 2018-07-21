@@ -27,9 +27,12 @@ class TopIcons extends React.Component  {
       var self = this;
       Logic.selectMyCart(token, function(cartArray){
         Logic.selectMyOrder(token, function(orderArray){
+          var order = null;
+          if(orderArray != null)
+            order = Object.keys(orderArray).length;
           self.setState({
             cart : cartArray,
-            order : orderArray,
+            order : order,
           });
         });
       });
@@ -66,7 +69,7 @@ class TopIcons extends React.Component  {
           >
             <Receipt/>
             { this.state.order ? (
-              <Badge style={{marginBottom:30}} badgeContent={this.state.order.length} color="error" component="string"/>
+              <Badge style={{marginBottom:30}} badgeContent={this.state.order} color="error" component="string"/>
             ):("")}
           </IconButton>
 

@@ -22,8 +22,6 @@ class Order extends React.Component  {
         order : json
       });
     });
-
-    
   }
 
   render(){
