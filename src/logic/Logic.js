@@ -62,6 +62,7 @@ export default class Logic{
   //static selectProductFromShop(){}
   //static selectProduct(){}
   //static selectMyCart(){}
+  //static selectMyOrder(){}
   //static addCart(){}
   //static removeCart(){}
   //static order(){}
@@ -155,6 +156,10 @@ export default class Logic{
         });
       }
     });
+  }
+  static selectMyOrder(token, func)
+  {
+    
   }
   static selectMyCart(token, func)
   {
