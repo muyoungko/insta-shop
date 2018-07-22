@@ -63,6 +63,7 @@ export default class Logic{
   //static selectProduct(){}
   //static selectMyCart(){}
   //static addCart(){}
+  //static removeCart(){}
   //static order(){}
   //static selectMyOrder(){}
   //static selectSellerInfo(){}
@@ -106,11 +107,35 @@ export default class Logic{
       func(orderId);
     });
   }
+
+  static removeCart(token, productId, func){
+    const db = firebase.database();
+    db.ref('cart/'+token).once('value').then(function(snapshot){
+      var arr = snapshot.val();
+      var newArr = [];
+      for(var i=0;i<arr.length;i++)
+      {
+        if(arr[i] == productId)
+        {
+          continue;
+        }
+        else {
+          newArr.push(arr[i]);
+        }
+      }
+      db.ref('cart/'+token).set(newArr, function(error){
+        func(true);
+      });
+    });
+  }
+
   static addCart(token, productId, func){
     const db = firebase.database();
     db.ref('cart/'+token).once('value').then(function(snapshot){
       var arr = snapshot.val();
       var has = false;
+      if(arr == null)
+        arr = [];
       for(var i=0;i<arr.length;i++)
       {
         if(arr[i] == productId)
@@ -167,6 +192,7 @@ export default class Logic{
       var product = {
           id : media.id,
           shop : shop.id,
+          shop_profile_picture : shop.profile_picture,
           image : media.images.low_resolution.url ,
           image_high : media.images.standard_resolution.url ,
           caption : captionText,
@@ -269,6 +295,15 @@ export default class Logic{
     });
   }
 
+
+  static selectUserInfo(token, func)
+  {
+      const db = firebase.database();
+      db.ref('users/'+token).once('value').then(function(shopSnapshot){
+        var user = shopSnapshot.val();
+        func(user);
+      });
+  }
 
   static selectSellerInfoByProduct(productId, func)
   {
