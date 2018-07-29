@@ -45,7 +45,7 @@ class Callback extends React.Component  {
       Logic.upsertAndGetUser(function(user,err){
           cookie.save('token', user.id);
           var productId = url.searchParams.get('productId');
-          window.location.href = '/first?productId='+productId;
+          window.location.href = '/first/'+productId;
       });
     }
     //다시 상품상세

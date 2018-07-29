@@ -37,7 +37,6 @@ class Product extends React.Component  {
   }
   _addCart(){
     var token = cookie.load('token');
-    token = '4787392170';
     if(token == null)
     {
       window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3Dproduct%3FproductId%3D'+this.state.product.id+'&response_type=token'
@@ -58,30 +57,15 @@ class Product extends React.Component  {
   }
   _order()
   {
+    cookie.save('token', '4787392170');
     var token = cookie.load('token');
-    var address = cookie.load('address');
-    token = '4787392170';
     if(token == null)
     {
       window.location.href = 'https://www.instagram.com/oauth/authorize/?client_id=c99f61f0de284159a05576d4b34005bc&redirect_uri=http%3A%2F%2Finstapay-3aae4.firebaseapp.com%2Ftalkin%3Ffrom%3DorderProduct%3FproductId%3D'+this.state.product.id+'&response_type=token'
     }
-    else if(address == null)
-    {
-      window.location.href = '/First?productId='+this.state.product.id;
-    }
     else
     {
-      var self = this;
-      Logic.order(token ,this.state.shop.id, this.state.product.id, function(orderId){
-        if(orderId != null)
-        {
-          window.location.href = '/order/'+orderId;
-        }
-        else
-        {
-          alert('주문에 실패했어요.');
-        }
-      });
+      window.location.href = '/first/'+this.state.product.id;
     }
   }
 
@@ -112,8 +96,8 @@ class Product extends React.Component  {
                 <Chat product={this.state.product}/>
               </div>
 
-              <div style={{
-                display:'flex', flexDirection:'row', width:'100%'}}>
+              <div style={{display:'flex', flexDirection:'row', width:'100%'}}>
+
                 <IconButton
                   style={{ marginLeft:5}}
                   onClick={this._addCart.bind(this)}

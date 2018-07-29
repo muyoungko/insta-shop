@@ -1,7 +1,7 @@
 import React from 'react';
 import Logic from '../logic/Logic.js';
 import UserTop from '../component/UserTop.js';
-import ProductRow from '../component/ProductRow.js';
+import OrderRow from '../component/OrderRow.js';
 import queryString from 'querystring';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import cookie from 'react-cookie'
@@ -19,8 +19,13 @@ class MyOrder extends React.Component  {
     var token = cookie.load('token');
     var self = this;
     Logic.selectMyOrder(token ,function(json){
+      var arr = []
+      Object.keys(json).forEach(function(key) {
+        arr.push(json[key]);
+      });
+
       self.setState({
-        data : json
+        data : arr
       });
     });
   }
@@ -38,11 +43,11 @@ class MyOrder extends React.Component  {
                         내 주문
                     </h3>
                     <List container spacing={0} style={{padding: 3}}>
-                      { this.state.data.map(currentProduct => (
-                          <ProductRow productId={currentProduct}/>
+
+                      { this.state.data.map(order => (
+                          <OrderRow order={order}/>
                       ))}
                     </List>
-                    <div style={{float:'bottom', align:'center', width:'100%', bottom:0, height:1, backgroundColor:'#eeeeee'}}></div>
                   </div>
               ) :
               (

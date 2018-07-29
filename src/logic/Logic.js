@@ -71,7 +71,7 @@ export default class Logic{
   //static selectSellerInfoByProduct(){}
   //static selectProductCandidateFromShop(){}
   static selectOrderListFromShop(seller){}
-  static selectOrderDetail(orderid){}
+  //static selectOrderDetail(orderid){}
   static changeOrderStateFromShop(){}
   static selectProfitFromShop(seller){}d
 
@@ -86,7 +86,15 @@ export default class Logic{
   static upsertOrderFromShop(){}
   static selectOrderListFromUser(seller){}
 
-  static order(token, shop, productId, func){
+  static selectOrderDetail(orderId, func){
+    const db = firebase.database();
+    db.ref('orders/all/'+orderId).once('value').then(function(orderSnapshot){
+      var order = orderSnapshot.val();
+      func(order);
+    });
+  }
+
+  static order(token, shop, productId, address, func){
     const db = firebase.database();
     var orderId = String(db.ref('orders/all').push());
     orderId = orderId.substring(orderId.lastIndexOf("/")+1, orderId.length);
@@ -97,11 +105,10 @@ export default class Logic{
       order['id'] = orderId;
       order['price'] = product.price;
       order['state'] = 'order';
-      order['address'] = '주소';
+      order['address'] = address;
       order['count'] = 1;
       order['shop'] = shop;
       order['user'] = token;
-
       db.ref('orders/all/'+orderId).update(order);
       db.ref('orders/byuser/'+token+"/"+orderId).update(order);
       db.ref('orders/byshop/'+shop+"/"+orderId).update(order);
@@ -159,7 +166,7 @@ export default class Logic{
   }
   static selectMyOrder(token, func)
   {
-    
+
   }
   static selectMyCart(token, func)
   {

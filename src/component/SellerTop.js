@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import TopIcons from '../component/TopIcons.js';
 import ProductItem from '../component/ProductItem.js'
+import { Link } from 'react-router-dom';
 
 class SellerTop extends React.Component  {
 
@@ -43,6 +44,7 @@ class SellerTop extends React.Component  {
           padding:3,
           float: 'left'
         }}>
+            <Link to={'/'+this.state.shop.username} >
             <img
             style={{
               width:57,
@@ -50,6 +52,7 @@ class SellerTop extends React.Component  {
               borderRadius:'50%'
             }}
             src={this.state.shop.profile_picture}/>
+            </Link>
         </div>
 
       ):(

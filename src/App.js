@@ -24,6 +24,7 @@ import MyOrder from './pages/MyOrder.js';
 import MyCart from './pages/MyCart.js';
 import Login from './pages/Login.js';
 import First from './pages/First.js';
+import Address from './pages/Address.js';
 import Callback from './pages/Callback.js';
 
 
@@ -99,6 +100,7 @@ class App extends React.Component {
               <Route path="/mycart" component={MyCart}/>
               <Route path="/product/:product" component={Product}/>
               <Route path="/first" component={First}/>
+              <Route path="/address" component={Address}/>
               <Route path="/order/:order" component={Order}/>
               <Route exact path="/:seller" component={Shop}/>
 
