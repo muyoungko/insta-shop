@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
 import Chat from '../component/Chat.js';
 import cookie from 'react-cookie';
+import ProductItem from '../component/ProductItem.js'
 
 class Product extends React.Component  {
   constructor()
@@ -74,27 +75,17 @@ class Product extends React.Component  {
       <div >
         { this.state.product ? (
           <div>
-            <div >
-              <img width='100%' src={this.state.product.image_high}/>
+            <div style={{width:'100%'}}>
+              <ProductItem product={this.state.product}/>
             </div>
 
             <div style={{padding:0, backgroundColor:'#ffffff',
               position:'fixed', left:0, right:0, bottom:0}}>
 
-              <div style={{padding:5, backgroundColor:'#eeeeee'}}>
-                <div style={{display:'inline'}}>
-                  Price :
+
+                <div >
+                  <Chat product={this.state.product}/>
                 </div>
-                <div style={{color:'#cc0000',display:'inline'}}>
-                  <b>{this.state.product.price} </b>
-                </div>
-                <div style={{display:'block'}}>
-                  {this.state.product.caption}
-                </div>
-              </div>
-              <div >
-                <Chat product={this.state.product}/>
-              </div>
 
               <div style={{display:'flex', flexDirection:'row', width:'100%'}}>
 

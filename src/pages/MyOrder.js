@@ -6,6 +6,7 @@ import queryString from 'querystring';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import cookie from 'react-cookie'
 import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
 
 class MyOrder extends React.Component  {
   constructor(props)
@@ -16,14 +17,17 @@ class MyOrder extends React.Component  {
     };
   }
   componentDidMount () {
+    cookie.save('token', '4787392170');
     var token = cookie.load('token');
     var self = this;
     Logic.selectMyOrder(token ,function(json){
       var arr = []
-      Object.keys(json).forEach(function(key) {
-        arr.push(json[key]);
-      });
-
+      if(json!= null)
+      {
+        Object.keys(json).forEach(function(key) {
+          arr.push(json[key]);
+        });
+      }
       self.setState({
         data : arr
       });
@@ -48,6 +52,7 @@ class MyOrder extends React.Component  {
                           <OrderRow order={order}/>
                       ))}
                     </List>
+                    <Divider/>
                   </div>
               ) :
               (
@@ -65,6 +70,16 @@ class MyOrder extends React.Component  {
                   />
                 </div>
               )
+             }
+
+
+             { this.state.data && this.state.data.length == 0 ? (
+                 <h4>
+                     주문 내역이 없습니다.
+                 </h4>
+               ):(
+                 ""
+               )
              }
           </div>
 

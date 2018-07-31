@@ -66,6 +66,7 @@ export default class Logic{
   //static addCart(){}
   //static removeCart(){}
   //static order(){}
+  //static processOrder(){}
   //static selectMyOrder(){}
   //static selectSellerInfo(){}
   //static selectSellerInfoByProduct(){}
@@ -93,7 +94,17 @@ export default class Logic{
       func(order);
     });
   }
-
+  static processOrder(token, orderId, shop, state, func){
+    const db = firebase.database();
+    var order= {state:state};
+    db.ref('orders/all/'+orderId).update(newArr, function(error){
+      db.ref('orders/byshop/'+shop+'/'+orderId).update(newArr, function(error){
+        db.ref('orders/byuser/'+token+'/'+orderId).update(newArr, function(error){
+          func(true);
+        });
+      });
+    });
+  }
   static order(token, shop, productId, address, func){
     const db = firebase.database();
     var orderId = String(db.ref('orders/all').push());
@@ -103,6 +114,7 @@ export default class Logic{
       var product = productSnapshot.val();
       var order = {};
       order['id'] = orderId;
+      order['productId'] = product.id;
       order['price'] = product.price;
       order['state'] = 'order';
       order['address'] = address;
@@ -408,5 +420,67 @@ export default class Logic{
         r[i - jin] = arr[i];
     }
     return r;
+  }
+
+  static getOrderStateDesc(state){
+    if(state == 'order')
+    {
+      return '주문되었습니다. 입금부탁드립니다';
+    }
+    else if(state == 'pay')
+    {
+      return '판매자가 입금을 확인 중입니다';
+    }
+    else if(state == 'cancel')
+    {
+      return '취소 요청 중입니다';
+    }
+    else if(state == 'paycheck')
+    {
+      return '판매자가 입금을 확인했습니다';
+    }
+    else if(state == 'delivery')
+    {
+      return '판매자가 배송을 시작했습니다';
+    }
+    else if(state == 'sale')
+    {
+      return '구매가 완료되었습니다';
+    }
+    else if(state == 'recall')
+    {
+      return '판매자가 취소를 승인했습니다';
+    }
+  }
+  static getOrderStateTitle(state){
+    if(state == 'order')
+    {
+      return '입금대기';
+    }
+    else if(state == 'pay')
+    {
+      return '입금';
+    }
+    else if(state == 'cancel')
+    {
+      return '취소요청';
+    }
+    else if(state == 'paycheck')
+    {
+      return '입금확인';
+    }
+    else if(state == 'delivery')
+    {
+      return '배송중';
+    }
+    else if(state == 'sale')
+    {
+      return '구매확정';
+    }
+    else if(state == 'recall')
+    {
+      return '취소확정';
+    }
+
   }
 };

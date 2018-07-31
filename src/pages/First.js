@@ -45,6 +45,11 @@ class First extends React.Component  {
     var token = cookie.load('token');
     var address1 = String(this.state.address1).trim();
     var address2 = String(this.state.address1).trim();
+    if(this.state.product == null)
+    {
+      alert('상품이 로딩 중입니다. 잠시만 기다려주세요');
+      return;
+    }
     if(address1 == '' || address1 == 'undefined')
     {
       alert('주소를 입력해주세요');

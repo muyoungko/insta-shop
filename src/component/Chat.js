@@ -41,7 +41,7 @@ class Chat extends React.Component  {
 
   render(){
     return(
-        <div style={{height:250}}>
+        <div style={{height:200}}>
           <div className="chatframe" >
               <ul style={{margin:0, padding:0}}>
 

@@ -5,8 +5,9 @@ import Button from '@material-ui/core/Button';
 import cookie from 'react-cookie'
 import IconButton from '@material-ui/core/IconButton';
 import Clear from '@material-ui/icons/Clear';
+import ProductItem from '../component/ProductItem.js'
 
-class ProductItem extends React.Component  {
+class ProductRow extends React.Component  {
   constructor(props)
   {
     super(props);
@@ -50,18 +51,17 @@ class ProductItem extends React.Component  {
     return(
       <Link to={'/product/'+this.props.productId} >
         {this.state.product?(
-          <div style={{ width:'100%', height:100, position:'relative'}} >
-            <img style={{float:'left', marginLeft:10, marginTop:10, width:80, height:80, borderRadius:'10%'}} src={this.state.product.image}/>
+          <div style={{ width:'100%', height:130, position:'relative'}} >
+            <div style={{width:'130px', height:'130px', float:'left'}}>
+              <ProductItem product={this.state.product}/>
+            </div>
             <div style={{float:'left', marginLeft:20, marginTop:12 }}>
               <div style={{float:'top', textAlign:'left', fontSize:'20px', color:'#333333'}}>
                 {this.state.product.caption}
               </div>
-              <div style={{float:'top', textAlign:'left', fontSize:'20px', color:'#ff0000'}}>
-                {this.state.product.price}
-              </div>
 
               <Link to={this.state.product.shop} >
-                <div style={{ marginTop:2}}>
+                <div style={{ marginTop:12}}>
                   <img
                     style={{
                       width:23,
@@ -80,16 +80,14 @@ class ProductItem extends React.Component  {
                       {this.state.product.shop}
                     </div>
                   </div>
-
                 </div>
               </Link>
-
             </div>
 
 
             <Link to={'#'} >
               <IconButton
-                style={{float:'right', marginTop:25, marginRight:10}}
+                style={{float:'right', marginTop:5, marginRight:10}}
                 onClick={this._clear.bind(this)}
                 >
                 <Clear/>
@@ -98,8 +96,8 @@ class ProductItem extends React.Component  {
             </Link>
 
 
-            <Link to={'/First/'+this.props.productId} >
-              <Button style={{float:'right', marginTop:30, marginRight:5}} variant='outlined' >
+            <Link to={'/first/'+this.props.productId} >
+              <Button style={{float:'right', marginTop:20, marginRight:15}} variant='outlined' >
                 주문
               </Button>
             </Link>
@@ -115,4 +113,4 @@ class ProductItem extends React.Component  {
     )
   }
 }
-export default ProductItem;
+export default ProductRow;
